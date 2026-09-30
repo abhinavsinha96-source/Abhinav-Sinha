@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-display: 'Fraunces', serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    background-color: #FFF0F5;
+    color: #331435;
+  }
+
+  html.dark {
+    background-color: #16081A;
+    color: #FDF2F8;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    background-color: #FFF0F5;
+    color: #331435;
+    min-height: 100vh;
+  }
+
+  html.dark body {
+    background-color: #16081A;
+    color: #FDF2F8;
+  }
+
+  h1, h2, .font-serif-display {
+    font-family: var(--font-display);
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+}
+
+/* Custom scrollbar in cute soft pink */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 114, 182, 0.45);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 72, 153, 0.75);
+}
+
+/* Audio wave animation */
+@keyframes soundwave {
+  0%, 100% { height: 4px; }
+  50% { height: 22px; }
+}
+
+.animate-soundwave {
+  animation: soundwave 1.2s ease-in-out infinite;
+}
+
+/* Queer Pride & Light Pink Glow Accents */
+.text-pride-gradient {
+  background: linear-gradient(135deg, #FF6090 0%, #FF8533 22%, #FFD000 42%, #00C49F 64%, #38BDF8 80%, #C084FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-pride-gradient {
+  background: linear-gradient(135deg, #FF5388 0%, #FF8A50 20%, #FFD54F 40%, #4DD0E1 60%, #81C784 80%, #BA68C8 100%);
+}
+
+.bg-pride-subtle {
+  background: linear-gradient(135deg, rgba(255, 83, 136, 0.12) 0%, rgba(255, 138, 80, 0.1) 20%, rgba(255, 213, 79, 0.1) 40%, rgba(77, 208, 225, 0.1) 60%, rgba(186, 104, 200, 0.12) 100%);
+}
+
+.border-pride-gradient {
+  border-image: linear-gradient(to right, #EC4899, #F43F5E, #FB923C, #FBBF24, #34D399, #38BDF8, #A855F7) 1;
+}
+
+.shadow-pink-glow {
+  box-shadow: 0 4px 20px -2px rgba(244, 114, 182, 0.3), 0 2px 8px -2px rgba(236, 72, 153, 0.2);
+}
+
+.shadow-pride-glow {
+  box-shadow: 0 4px 24px -2px rgba(236, 72, 153, 0.3), 0 2px 10px -2px rgba(168, 85, 247, 0.25);
+}
+
+.bg-pink-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 240, 245, 0.85) 100%);
+}
+
+.dark .bg-pink-card {
+  background: linear-gradient(180deg, rgba(35, 14, 42, 0.96) 0%, rgba(24, 9, 29, 0.96) 100%);
+}

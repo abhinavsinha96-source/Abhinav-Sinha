@@ -1,0 +1,11 @@
+{
+  "name": "Haven — Private Stories & Encrypted Messaging",
+  "description": "A secure, privacy-first community app to share personal stories with photos and audio clips, direct messaging with friends-only access, end-to-end encryption, content moderation, offline syncing, and real-time alerts.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

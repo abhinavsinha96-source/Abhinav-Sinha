@@ -1,0 +1,129 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile and encrypted credentials",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "handle": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 150 },
+        "bio": { "type": "string", "maxLength": 1000 },
+        "avatarUrl": { "type": "string", "maxLength": 1000 },
+        "location": { "type": "string", "maxLength": 150 },
+        "occupation": { "type": "string", "maxLength": 100 },
+        "philosophy": { "type": "string", "maxLength": 1000 },
+        "interests": { "type": "string", "maxLength": 500 },
+        "gender": { "type": "string", "maxLength": 100 },
+        "pronouns": { "type": "string", "maxLength": 50 },
+        "genderVisibility": { "type": "string", "enum": ["public", "friends_only", "private"] },
+        "isProfileComplete": { "type": "boolean" },
+        "voiceIntroUrl": { "type": "string", "maxLength": 1000 },
+        "publicKey": { "type": "string", "maxLength": 2000 },
+        "encryptedVault": { "type": "string", "maxLength": 50000 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "displayName", "email"]
+    },
+    "Story": {
+      "title": "Story",
+      "description": "Personal memoir story with photo and audio/video",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "authorId": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorHandle": { "type": "string", "maxLength": 50 },
+        "authorAvatar": { "type": "string", "maxLength": 1000 },
+        "title": { "type": "string", "maxLength": 200 },
+        "content": { "type": "string", "maxLength": 20000 },
+        "excerpt": { "type": "string", "maxLength": 500 },
+        "category": { "type": "string", "maxLength": 50 },
+        "tags": { "type": "string", "maxLength": 500 },
+        "photoUrl": { "type": "string", "maxLength": 500000 },
+        "audioClipUrl": { "type": "string", "maxLength": 500000 },
+        "videoClipUrl": { "type": "string", "maxLength": 500000 },
+        "location": { "type": "string", "maxLength": 200 },
+        "isFriendsOnly": { "type": "boolean" },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "authorId", "title", "content"]
+    },
+    "FriendRequest": {
+      "title": "FriendRequest",
+      "description": "Friends-only direct messaging request gate",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "fromUserId": { "type": "string", "maxLength": 128 },
+        "fromUserName": { "type": "string", "maxLength": 100 },
+        "fromUserAvatar": { "type": "string", "maxLength": 1000 },
+        "toUserId": { "type": "string", "maxLength": 128 },
+        "toUserName": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "enum": ["pending", "accepted", "declined"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "fromUserId", "toUserId", "status"]
+    },
+    "DirectMessage": {
+      "title": "DirectMessage",
+      "description": "End-to-end encrypted direct message between accepted friends",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "senderId": { "type": "string", "maxLength": 128 },
+        "recipientId": { "type": "string", "maxLength": 128 },
+        "encryptedPayload": { "type": "string", "maxLength": 50000 },
+        "iv": { "type": "string", "maxLength": 128 },
+        "salt": { "type": "string", "maxLength": 128 },
+        "status": { "type": "string", "enum": ["sent", "delivered", "read"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "senderId", "recipientId", "encryptedPayload", "iv", "salt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Real-time notification for events and activities",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "maxLength": 50 },
+        "title": { "type": "string", "maxLength": 150 },
+        "message": { "type": "string", "maxLength": 500 },
+        "read": { "type": "boolean" },
+        "link": { "type": "string", "maxLength": 200 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "type", "title", "message"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profiles and public keys"
+    },
+    "/stories/{storyId}": {
+      "schema": { "$ref": "#/entities/Story" },
+      "description": "Published memoirs and media stories"
+    },
+    "/friend_requests/{requestId}": {
+      "schema": { "$ref": "#/entities/FriendRequest" },
+      "description": "Friend request invitations for direct messaging access"
+    },
+    "/direct_messages/{messageId}": {
+      "schema": { "$ref": "#/entities/DirectMessage" },
+      "description": "Encrypted direct messages exchanged between friends"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "In-app real-time notifications for user activity"
+    }
+  }
+}
